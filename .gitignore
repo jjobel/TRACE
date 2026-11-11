@@ -1,0 +1,5 @@
+# Claude Code: per-developer settings, including locally installed plugins
+# and skills (e.g. mattpocock-skills). These stay on each machine and are
+# never committed.
+.claude/settings.local.json
+.claude/skills/
