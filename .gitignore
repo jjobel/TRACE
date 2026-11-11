@@ -1,0 +1,6 @@
+# Local working files: per-developer configuration and notes.
+# These stay on each machine and are never committed.
+.claude/
+CLAUDE.md
+docs/agents/
+HANDOFF.md
