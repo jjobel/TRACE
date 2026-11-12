@@ -1,0 +1,29 @@
+{
+  "name": "trace-telemetry",
+  "productName": "TRACE Telemetry",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Desktop application of TRACE Telemetry: the Electron shell and the user interface.",
+  "license": "GPL-3.0-or-later",
+  "main": "out/shell/main.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "start": "electron-vite build && electron .",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "test": "electron-vite build && playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "electron": "^45.3.1",
+    "electron-vite": "^6.0.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}
