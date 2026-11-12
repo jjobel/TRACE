@@ -1,0 +1,15 @@
+{
+  // The shell, the build configuration and the end-to-end tests: code that runs in Node.
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM"],
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": ["src/shell", "src/bridge.ts", "e2e", "electron.vite.config.ts", "playwright.config.ts"]
+}

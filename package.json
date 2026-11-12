@@ -1,0 +1,21 @@
+{
+  "name": "trace-telemetry-workspace",
+  "private": true,
+  "description": "TRACE Telemetry: the Python analysis core (core/) and the desktop application (app/).",
+  "license": "GPL-3.0-or-later",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "workspaces": [
+    "app"
+  ],
+  "scripts": {
+    "setup:core": "uv sync --project core",
+    "start": "npm run setup:core && npm run start --workspace app",
+    "dev": "npm run setup:core && npm run dev --workspace app",
+    "typecheck": "npm run typecheck --workspace app",
+    "test": "npm run test:core && npm run test:app",
+    "test:core": "uv run --directory core pytest",
+    "test:app": "npm run setup:core && npm run test --workspace app"
+  }
+}

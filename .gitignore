@@ -12,3 +12,8 @@ __pycache__/
 
 # Node
 node_modules/
+
+# Build and test output of the desktop application
+app/out/
+test-results/
+playwright-report/
