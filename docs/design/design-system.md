@@ -138,7 +138,7 @@ A Channel keeps its colour everywhere in the application.
 - **Lap strip.** Ruled cells, lap number left, time right. Main lap inverse; best Lap a 3 px bar in `best`; Overlay lap outlined.
 - **Tabs.** Capitals, numbered key cap, active tab inverse, `line` beneath the row.
 - **Pane.** Header in `ground-2` with a capital label. The Data pane shows Log, Outing, then the lap table: marker, Lap, note, Time, Gap.
-- **Time/Distance graph.** Tiled groups. Each group has a 16 px header band (colour swatch, Channel name, unit and position, cursor value, then minimum, maximum and average at the right) so the legend never covers a trace. Sector strip and turn numbers above; distance axis below. Traces 1.6 px. The cursor is a 1 px `ink` line with its distance on the axis.
+- **Time/Distance graph.** Tiled groups. Each group has a 16 px header band (colour swatch, Channel name, unit and position, cursor value, then minimum, maximum and average at the right) so the legend never covers a trace. Sector strip above; distance axis below. Turn numbers join the strip when corner detection arrives in a later phase. Traces 1.6 px. The cursor is a 1 px `ink` line with its distance on the axis.
 - **Tables.** Capital column heads in `ink-3`, hairline rows, figures right-aligned.
 - **Details list.** Label in `ink-3`, value in `ink`. Shows where the numbers come from: Source, Adapter, name in the file, recorded unit, stored unit, shown unit, sample rate, and what a derived Channel is derived from.
 - **Buttons.** Default: `frame` border. Primary: inverse. Delete: `danger`.
