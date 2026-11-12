@@ -52,8 +52,7 @@ OUT_AND_IN_LAP_PACE = 0.8
 PACE_CHANGE = (300.0, 600.0)  # m from the Control line between which the pace changes
 
 LOG_RATE = 20  # Hz
-START_OF_DAY = (14, 2, 8)  # UTC time of the first sample
-CREATED = "16/05/2026 @ 14:02:08"
+DAY = "16/05/2026"  # the day the file says it was created on
 GRID_STEP = 0.1  # m, the step the motion is integrated on
 
 STANDARD_CHANNELS = (
@@ -80,35 +79,41 @@ class SyntheticVbo:
 
     path: Path
     lap_times: tuple[float, ...]  # s, one per Lap, in the order driven
-    channel_names: tuple[str, ...]  # the file's [header], in column order
+    header: tuple[str, ...]  # the file's [header]: its columns, in order
     sample_count: int
 
 
 def write_car_circuit_vbo(
-    path: Path, lap_times: tuple[float, ...] = (68.512, 67.874, 68.139)
+    path: Path,
+    lap_times: tuple[float, ...] = (68.512, 67.874, 68.139),
+    first_sample_at: tuple[int, int, int] = (14, 2, 8),
 ) -> SyntheticVbo:
-    """Write a car's Log of one Outing on the oval Circuit: Out-lap, Laps, In-lap."""
-    run = _drive(lap_times)
-    x, y, heading = _place(run.lap_position)
+    """Write a car's Log of one Outing on the oval Circuit: Out-lap, Laps, In-lap.
+
+    `first_sample_at` is the UTC time of day of the first sample, as hours,
+    minutes and seconds.
+    """
+    motion = _drive(lap_times)
+    x, y, heading = _place(motion.lap_position)
 
     latitude = LATITUDE + np.degrees(y / EARTH_RADIUS)
     longitude = LONGITUDE + np.degrees(x / (EARTH_RADIUS * np.cos(np.radians(LATITUDE))))
-    gear = np.minimum(1 + np.searchsorted(GEAR_TOP_SPEEDS, run.speed), len(GEAR_TOP_SPEEDS))
-    engine_speed = ENGINE_SPEED_LIMIT * run.speed / GEAR_TOP_SPEEDS[gear - 1]
+    gear = np.minimum(1 + np.searchsorted(GEAR_TOP_SPEEDS, motion.speed), len(GEAR_TOP_SPEEDS))
+    engine_speed = ENGINE_SPEED_LIMIT * motion.speed / GEAR_TOP_SPEEDS[gear - 1]
     throttle = np.where(
-        run.acceleration < 0, 0.0, np.clip(20 + 80 * run.acceleration / ACCELERATION, 0, 100)
+        motion.acceleration < 0, 0.0, np.clip(20 + 80 * motion.acceleration / ACCELERATION, 0, 100)
     )
-    brake_pressure = FULL_BRAKE_PRESSURE * np.clip(-run.acceleration / BRAKING, 0, 1) + 0.0
+    brake_pressure = FULL_BRAKE_PRESSURE * np.clip(-motion.acceleration / BRAKING, 0, 1) + 0.0
 
     rows = [
         " ".join(
             [
                 "009",
-                _clock(index),
+                _clock(first_sample_at, index),
                 # Minutes of arc. The format counts longitude positive to the west.
                 f"{latitude[index] * 60:012.5f}",
                 f"{-longitude[index] * 60:012.5f}",
-                f"{run.speed[index] * 3.6:07.3f}",
+                f"{motion.speed[index] * 3.6:07.3f}",
                 f"{heading[index]:06.2f}",
                 f"{HEIGHT:+09.2f}",
                 f"{engine_speed[index]:+.5E}",
@@ -117,15 +122,16 @@ def write_car_circuit_vbo(
                 f"{float(gear[index]):+.5E}",
             ]
         )
-        for index in range(len(run.speed))
+        for index in range(len(motion.speed))
     ]
 
-    channel_names = (*STANDARD_CHANNELS, *CAR_CHANNELS)
+    header = (*STANDARD_CHANNELS, *CAR_CHANNELS)
+    hours, minutes, seconds = first_sample_at
     lines = [
-        f"File created on {CREATED}",
+        f"File created on {DAY} @ {hours:02d}:{minutes:02d}:{seconds:02d}",
         "",
         "[header]",
-        *channel_names,
+        *header,
         "",
         "[channel units]",
         *CAR_CHANNELS.values(),
@@ -151,21 +157,21 @@ def write_car_circuit_vbo(
     return SyntheticVbo(
         path=path,
         lap_times=tuple(lap_times),
-        channel_names=channel_names,
+        header=header,
         sample_count=len(rows),
     )
 
 
 @dataclass(frozen=True)
-class _Run:
-    """The Vehicle's motion at each sample."""
+class _Motion:
+    """How the Vehicle is moving at each sample."""
 
     lap_position: np.ndarray  # m from the Control line, along the Circuit
     speed: np.ndarray  # m/s
     acceleration: np.ndarray  # m/s², along the path
 
 
-def _drive(lap_times: tuple[float, ...]) -> _Run:
+def _drive(lap_times: tuple[float, ...]) -> _Motion:
     """Sample the Outing at the log rate, with each Lap taking its given time."""
     # One Lap on a fine grid of distance from the Control line. Driving it at
     # a pace of full_pace_lap_time / lap_time takes exactly lap_time.
@@ -174,14 +180,15 @@ def _drive(lap_times: tuple[float, ...]) -> _Run:
     full_pace_lap_time = _elapsed(grid, _profile_speed(grid))[-1]
     lap_paces = [full_pace_lap_time / lap_time for lap_time in lap_times]
 
-    # Each stint is a stretch of the Circuit and the pace at each point of it.
+    # Each part of the Outing is a stretch of the Circuit and the pace at each
+    # point of it.
     # The Out-lap comes up to the pace of the first Lap, and the In-lap holds
     # the pace of the last Lap, well clear of the Control line, so the speed
     # does not step where a Lap is timed.
     near, far = PACE_CHANGE
     out_lap = _stretch(grid, LAP_DISTANCE - OUT_LAP_DISTANCE, LAP_DISTANCE)
     in_lap = _stretch(grid, 0.0, IN_LAP_DISTANCE)
-    stints = [
+    parts = [
         (
             out_lap,
             np.interp(
@@ -191,21 +198,21 @@ def _drive(lap_times: tuple[float, ...]) -> _Run:
             ),
         )
     ]
-    stints += [(grid, np.full(len(grid), pace)) for pace in lap_paces]
-    stints += [(in_lap, np.interp(in_lap, [near, far], [lap_paces[-1], OUT_AND_IN_LAP_PACE]))]
+    parts += [(grid, np.full(len(grid), pace)) for pace in lap_paces]
+    parts += [(in_lap, np.interp(in_lap, [near, far], [lap_paces[-1], OUT_AND_IN_LAP_PACE]))]
 
     # Time, distance driven, speed and acceleration along the whole Outing.
     # Distance driven never falls back, unlike lap position.
     times, distances, speeds, accelerations = [], [], [], []
     elapsed = driven = 0.0
-    for points, pace in stints:
+    for points, pace in parts:
         speed = pace * _profile_speed(points)
-        stint_time = _elapsed(points, speed)
-        times.append(elapsed + stint_time)
+        part_time = _elapsed(points, speed)
+        times.append(elapsed + part_time)
         distances.append(driven + points - points[0])
         speeds.append(speed)
         accelerations.append(speed * np.gradient(speed, points))  # a = v dv/ds
-        elapsed += stint_time[-1]
+        elapsed += part_time[-1]
         driven += points[-1] - points[0]
     time = np.concatenate(times)
     sample_time = np.arange(int(elapsed * LOG_RATE) + 1) / LOG_RATE
@@ -213,7 +220,7 @@ def _drive(lap_times: tuple[float, ...]) -> _Run:
     def at_samples(values: list[np.ndarray]) -> np.ndarray:
         return np.interp(sample_time, time, np.concatenate(values))
 
-    return _Run(
+    return _Motion(
         lap_position=(out_lap[0] + at_samples(distances)) % LAP_DISTANCE,
         speed=at_samples(speeds),
         acceleration=at_samples(accelerations),
@@ -295,10 +302,11 @@ def _place(lap_position: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray
     return x, y, heading % 360.0
 
 
-def _clock(sample: int) -> str:
-    """UTC time of day of a sample, as hhmmss.ss."""
-    hours, minutes, seconds = START_OF_DAY
+def _clock(first_sample_at: tuple[int, int, int], sample: int) -> str:
+    """UTC time of day of a sample, as hhmmss.ss. It starts again from zero at midnight."""
+    hours, minutes, seconds = first_sample_at
     hundredths = (hours * 3600 + minutes * 60 + seconds) * 100 + sample * 100 // LOG_RATE
+    hundredths %= 24 * 3600 * 100
     return (
         f"{hundredths // 360000:02d}"
         f"{hundredths // 6000 % 60:02d}"

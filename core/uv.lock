@@ -458,6 +458,8 @@ dependencies = [
     { name = "fastapi" },
     { name = "numpy" },
     { name = "pyarrow" },
+    { name = "pydantic" },
+    { name = "starlette" },
     { name = "uvicorn" },
 ]
 
@@ -472,6 +474,8 @@ requires-dist = [
     { name = "fastapi" },
     { name = "numpy" },
     { name = "pyarrow" },
+    { name = "pydantic" },
+    { name = "starlette" },
     { name = "uvicorn" },
 ]
 

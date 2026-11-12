@@ -34,10 +34,17 @@ class StoredOuting(BaseModel):
     channels: list[StoredChannel]
 
 
-class StoredLog(BaseModel):
+class LogSummary(BaseModel):
+    """What a list of Logs says about each one."""
+
     id: str
     file_name: str
     imported_at: datetime
+
+
+class StoredLog(LogSummary):
+    """A Log as its `log.json` describes it."""
+
     outings: list[StoredOuting]
 
 

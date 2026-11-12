@@ -15,6 +15,7 @@ from trace_telemetry.adapters import UnreadableFile
 from trace_telemetry.log import Channel, Log, Outing
 
 NAMESPACE = "vbo"
+HALF_A_DAY = 12 * 3600  # s
 
 
 def read_vbo(path: Path) -> Log:
@@ -22,8 +23,11 @@ def read_vbo(path: Path) -> Log:
     sections = _sections(path.read_text(encoding="utf-8", errors="replace"))
     if "header" not in sections or "data" not in sections:
         raise UnreadableFile(
-            f"{path.name} is not a Racelogic .vbo file: "
-            "it has no [header] section or no [data] section."
+            cause=(
+                f"{path.name} is not a Racelogic .vbo file: "
+                "it has no [header] section or no [data] section."
+            ),
+            remedy="Choose a .vbo file written by a Racelogic logger.",
         )
     header = sections["header"]
     data = np.array([[float(value) for value in row.split()] for row in sections["data"]])
@@ -32,7 +36,9 @@ def read_vbo(path: Path) -> Log:
     # Channel its sample times, counted from the first sample.
     clock = data[:, header.index("time")]
     seconds = (clock // 10000) * 3600 + (clock // 100 % 100) * 60 + clock % 100
-    times = seconds - seconds[0]
+    # The time of day starts again from zero at midnight; the Outing does not.
+    midnights_passed = np.cumsum(np.diff(seconds, prepend=seconds[0]) < -HALF_A_DAY)
+    times = seconds + midnights_passed * 2 * HALF_A_DAY - seconds[0]
 
     channels = tuple(
         Channel(name=f"{NAMESPACE}.{name}", times=times, values=data[:, column])

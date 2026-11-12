@@ -3,8 +3,8 @@
 It is internal to TRACE and versioned with the application.
 """
 
+import logging
 import secrets
-from datetime import datetime
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
@@ -15,17 +15,13 @@ from starlette.responses import JSONResponse
 from starlette.types import ASGIApp, Receive, Scope, Send
 
 from trace_telemetry.adapters import UnreadableFile
-from trace_telemetry.log_store import LogStore, StoredLog
+from trace_telemetry.log_store import LogStore, LogSummary, StoredLog
+
+logger = logging.getLogger(__name__)
 
 
 class ImportRequest(BaseModel):
     path: Path
-
-
-class LogSummary(BaseModel):
-    id: str
-    file_name: str
-    imported_at: datetime
 
 
 class _RequireSecret:
@@ -74,14 +70,30 @@ def create_app(data_dir: Path, secret: str, ui_origin: str | None = None) -> Fas
 
     @app.post("/logs/import", status_code=201)
     def import_log(request: ImportRequest) -> StoredLog:
+        name = request.path.name
         try:
             return store.import_file(request.path)
-        except UnreadableFile as cause:
-            raise HTTPException(status_code=400, detail=f"{cause} Nothing was imported.") from cause
+        except UnreadableFile as unreadable:
+            raise HTTPException(
+                status_code=400,
+                detail=f"{unreadable.cause} Nothing was imported. {unreadable.remedy}",
+            ) from unreadable
+        except Exception as fault:
+            # Answered here, not left to the server, so that the user interface
+            # is told in words it can show.
+            logger.exception("Importing %s failed", request.path)
+            raise HTTPException(
+                status_code=500,
+                detail=(
+                    f"TRACE could not read {name}; the file may be damaged. "
+                    "Nothing was imported. If the logger's own software opens the file, "
+                    "please report this as a fault in TRACE."
+                ),
+            ) from fault
 
-    @app.get("/logs")
-    def list_logs() -> list[LogSummary]:
-        return [LogSummary(**log.model_dump(exclude={"outings"})) for log in store.list_logs()]
+    @app.get("/logs", response_model=list[LogSummary])
+    def list_logs() -> list[StoredLog]:
+        return store.list_logs()
 
     @app.get("/logs/{log_id}")
     def read_log(log_id: str) -> StoredLog:

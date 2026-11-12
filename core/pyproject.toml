@@ -9,6 +9,8 @@ dependencies = [
     "fastapi",
     "numpy",
     "pyarrow",
+    "pydantic",
+    "starlette",
     "uvicorn",
 ]
 
