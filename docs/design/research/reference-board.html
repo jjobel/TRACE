@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>TRACE design research: reference board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=B612:wght@400;700&family=B612+Mono&family=Barlow+Condensed:wght@600&family=Barlow+Semi+Condensed:wght@400;600&family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#14171a;--ink2:#444b52;--rule:#14171a;--soft:#c9ced3;--bg:#f4f5f6;--card:#fff}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1180px;margin:0 auto;padding:24px 16px 64px}
+h1{font-size:26px;line-height:1.2;margin:0 0 8px}
+h2{font-size:19px;margin:44px 0 6px;padding-top:12px;border-top:2px solid var(--rule)}
+h3{font-size:15px;margin:22px 0 6px}
+p{margin:0 0 10px;max-width:78ch}
+a{color:#0b4f9e}a:hover{color:#06305f}
+.lede{font-size:16px;max-width:80ch}
+nav{display:flex;flex-wrap:wrap;gap:6px 16px;margin:14px 0 0;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin:12px 0}
+figure{margin:0;background:var(--card);border:1px solid var(--rule)}
+figure img{display:block;width:100%;height:auto;background:#e3e6e9;min-height:120px}
+figure.wide{grid-column:1/-1}
+figcaption{padding:8px 10px;font-size:13px;line-height:1.4;border-top:1px solid var(--rule)}
+figcaption b{display:block}
+figcaption span{color:var(--ink2)}
+.tw{overflow-x:auto;margin:10px 0}
+table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card)}
+th,td{border:1px solid var(--soft);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:#e7eaed;border-color:var(--rule) var(--soft)}
+table{border:1px solid var(--rule)}
+td.k{white-space:nowrap;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px}
+ul{margin:0 0 10px;padding-left:20px;max-width:80ch}
+li{margin:3px 0}
+.note{font-size:13px;color:var(--ink2)}
+.spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin:12px 0}
+.spec>div{background:var(--card);border:1px solid var(--rule);padding:12px 14px}
+.spec .big{font-size:30px;line-height:1.15;margin:6px 0 4px;font-variant-numeric:tabular-nums}
+.spec .sm{font-size:13px;font-variant-numeric:tabular-nums}
+.spec small{display:block;color:var(--ink2);font:13px/1.4 system-ui,sans-serif;margin-top:8px}
+.sw{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 14px}
+.sw span{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);padding:5px 9px 5px 5px;background:var(--card);font-size:13px}
+.sw i{display:inline-block;width:38px;height:22px;border:1px solid rgba(0,0,0,.35)}
+.sw.dk span{background:#000;color:#f2f0ea;border-color:#000}
+.cta{display:inline-block;margin:6px 12px 6px 0;padding:8px 14px;border:1px solid var(--rule);background:var(--ink);color:#fff;text-decoration:none}
+.cta:hover{color:#fff;background:#000}
+</style>
+</head>
+<body>
+<main>
+<h1>TRACE design research: reference board</h1>
+<p class="lede">What the incumbent tools look like, what a switching user expects to find in the same place, and the real material the three style directions are drawn from. Every image below is loaded from its original publisher and links back to it; nothing is copied into this repository.</p>
+<p><a class="cta" href="style-directions.html">Open the three mockups</a></p>
+<nav><a href="#motec">1. MoTeC i2</a><a href="#keep">2. Keep and improve</a><a href="#keys">3. Hot keys</a><a href="#others">4. Other tools</a><a href="#switch">5. Switching precedents</a><a href="#ground">6. Motorsport grounding</a><a href="#parts">7. Typefaces and colours</a><a href="#open">8. Open points</a></nav>
+
+<h2 id="motec">1. MoTeC i2 Pro: the layout to stay close to</h2>
+<p>These are real i2 Pro 1.1.4 screens showing the workspace that ships with Assetto Corsa Competizione, published in a Coach Dave Academy tutorial. They are the screens most sim racers, and many club racers, already know.</p>
+<div class="grid">
+<figure class="wide"><a href="https://coachdaveacademy.com/tutorials/how-to-use-motec-data-in-assetto-corsa-competizione/"><img loading="lazy" referrerpolicy="no-referrer" src="https://coachdaveacademy.com/wp-content/uploads/2020/11/blog-motec-Compare.png" alt="MoTeC i2 Pro Compare worksheet with seven tiled channel groups on a black background"></a><figcaption><b>Time/Distance graph, "Compare" worksheet</b><span>Top to bottom: menu bar, icon toolbar, current lap line, lap strip, workbook selector with numbered worksheet tabs, section strip, tiled channel groups, distance axis, status bar. Data, Channels, Reports and Layouts are tabs on the left edge. Source: Coach Dave Academy.</span></figcaption></figure>
+<figure><a href="https://coachdaveacademy.com/tutorials/how-to-use-motec-data-in-assetto-corsa-competizione/"><img loading="lazy" referrerpolicy="no-referrer" src="https://coachdaveacademy.com/wp-content/uploads/2020/11/blog-motec-Section-Times.png" alt="MoTeC i2 Pro Section Times report with green highlighted cells"></a><figcaption><b>Section Times report</b><span>Laps as columns, track sections as rows, fastest cells filled green, a rolling minimum column. Source: Coach Dave Academy.</span></figcaption></figure>
+<figure><a href="https://coachdaveacademy.com/tutorials/how-to-use-motec-data-in-assetto-corsa-competizione/"><img loading="lazy" referrerpolicy="no-referrer" src="https://coachdaveacademy.com/wp-content/uploads/2020/11/blog-motec-Track-Report.png" alt="MoTeC i2 Pro Track Report showing a circuit coloured by brake and throttle"></a><figcaption><b>Track Report</b><span>The circuit coloured by a channel, with minimum and maximum speed flags per section. Source: Coach Dave Academy.</span></figcaption></figure>
+<figure><a href="https://coachdaveacademy.com/tutorials/how-to-use-motec-data-in-assetto-corsa-competizione/"><img loading="lazy" referrerpolicy="no-referrer" src="https://coachdaveacademy.com/wp-content/uploads/2020/11/blog-motec-Channel-report.png" alt="MoTeC i2 Pro Channel Report with tables and line charts per section"></a><figcaption><b>Channel Report</b><span>Statistics per track section as a table and as a chart. Source: Coach Dave Academy.</span></figcaption></figure>
+</div>
+<p class="note">MoTeC's own product page describes the structure in words (project, workbooks, worksheets, components, cursor and zoom linking) but shows no screenshots of the window: <a href="https://www.motec.com.au/i2/">motec.com.au/i2</a>.</p>
+
+<h2 id="keep">2. What TRACE keeps, and where it improves</h2>
+<div class="tw"><table>
+<thead><tr><th style="width:24%">Part of the window</th><th style="width:38%">Kept from MoTeC, so switching costs little</th><th>Improved in TRACE</th></tr></thead>
+<tbody>
+<tr><td>Order of the window</td><td>Menu bar, toolbar, current lap line, lap strip, workbook and worksheet tabs, worksheet, status bar, in that order.</td><td>Drawn sharp at any screen scale. The same window on Windows, macOS and Linux; i2 is Windows only.</td></tr>
+<tr><td>Menus</td><td>File, Edit, View, Layout, Add, Data, Component, Tools, Help, in the same order.</td><td>Every toolbar button is also a menu command, and a search box finds any Channel or command by name.</td></tr>
+<tr><td>Toolbar</td><td>The same jobs: open, overlays, variance, time or distance, zoom, lap stepping, animate.</td><td>About fifteen labelled buttons that show their hot key, in place of about thirty-five small unlabelled icons.</td></tr>
+<tr><td>Current lap line</td><td>Shows which lap is the Main lap and which is the Overlay.</td><td>Named fields (Lap, Time, Outing, Session, Course, Vehicle) in place of one bracketed string.</td></tr>
+<tr><td>Lap strip</td><td>The Outing as a horizontal strip of laps, selected lap highlighted.</td><td>Each cell shows its lap time; the best Lap is marked; the Out-lap and In-lap are hatched because they are not Laps; a Deleted lap is struck through.</td></tr>
+<tr><td>Workbooks and worksheets</td><td>Workbook selector, numbered worksheet tabs on keys 1 to 0, components on each worksheet.</td><td>Nothing changed in structure. This is the part users have the most muscle memory for.</td></tr>
+<tr><td>Data and Channels</td><td>On the left edge, opened with F8 and C.</td><td>Open and pinned by default, so a new user sees their Logs, Outings and Laps without knowing a hot key.</td></tr>
+<tr><td>Time/Distance graph</td><td>Tiled groups, Channel name with the cursor value on the left, minimum, maximum and average on the right, distance axis below, section strip above.</td><td>The legend sits in its own band and never covers a trace. Position on the Vehicle is shown as its own field ("Brake pressure, front").</td></tr>
+<tr><td>Channel colours</td><td>Throttle green and brake red, as nearly every tool does.</td><td>Hues tested for colour-vision deficiency on black and on white. i2's default pure red and pure green fail that test.</td></tr>
+<tr><td>Best times</td><td>A sector table with the best cells marked.</td><td>Marked the way timing screens do: best of the Outing in magenta, an improvement in green.</td></tr>
+<tr><td>Theme</td><td>A black plot area is available.</td><td>A light theme for sunlight and printing as well. Bosch recommends its white style for sunlight, and reading research favours dark text on light for small text.</td></tr>
+</tbody></table></div>
+
+<h2 id="keys">3. Hot keys to carry over</h2>
+<p>From the hot-key appendix of a third-party i2 Pro guide. It was written for an older i2 release, so each key needs checking against the Help file of the current version before it is fixed in TRACE.</p>
+<div class="tw"><table>
+<thead><tr><th>Key</th><th>Action in i2</th><th>Key</th><th>Action in i2</th></tr></thead>
+<tbody>
+<tr><td class="k">F8</td><td>Data window (select lap, outing)</td><td class="k">F9</td><td>Time or distance on the x axis</td></tr>
+<tr><td class="k">C</td><td>Channels window</td><td class="k">F3</td><td>Variance on or off</td></tr>
+<tr><td class="k">V</td><td>Values on or off</td><td class="k">F4</td><td>Overlays on or off</td></tr>
+<tr><td class="k">N / P</td><td>Next or previous lap</td><td class="k">Ctrl+F</td><td>Select the fastest lap</td></tr>
+<tr><td class="k">Left / Right</td><td>Move the cursor (Ctrl for fast)</td><td class="k">Up / Down</td><td>Zoom in or out</td></tr>
+<tr><td class="k">F2</td><td>Zoom full out</td><td class="k">W</td><td>Zoom to one lap</td></tr>
+<tr><td class="k">Shift+Left / Right</td><td>Pan</td><td class="k">G</td><td>Overlapped or tiled groups</td></tr>
+<tr><td class="k">0 to 9</td><td>Select that worksheet</td><td class="k">F11 / F12</td><td>Previous or next worksheet</td></tr>
+<tr><td class="k">Ctrl+O</td><td>Open log file</td><td class="k">F5</td><td>Component properties</td></tr>
+<tr><td class="k">Enter, O, R</td><td>In the Data window: make Main, Overlay, Reference</td><td class="k">A</td><td>Animate start or stop</td></tr>
+<tr><td class="k">Q</td><td>Swap Main and Overlay</td><td class="k">Ctrl+E / Ctrl+M</td><td>Channel editor, Maths editor</td></tr>
+</tbody></table></div>
+<p class="note">Source: "GTR2 MoTeC i2 Pro Beginners Guide", appendix 1 (<a href="https://www.blimeygames.com/files/GTR2%20MoTeC%20i2%20Pro%20Beginners%20Guide.pdf">PDF</a>). MoTeC's seminar slides say the complete list is in the i2 Help file.</p>
+
+<h2 id="others">4. The other professional tools</h2>
+<p>MoTeC is not alone in this layout. Across seven tools the same parts keep turning up, which is what makes them the standard an engineer expects.</p>
+<div class="grid">
+<figure><a href="https://docs.atlas.mclarenapplied.com/key-functionality/analyse/viewer/quick-start/"><img loading="lazy" referrerpolicy="no-referrer" src="https://docs.atlas.mclarenapplied.com/key-functionality/analyse/viewer/assets/main-window.png" alt="McLaren Applied ATLAS main window with menu bar, timeline, page tabs and displays"></a><figcaption><b>McLaren Applied ATLAS</b><span>Workbook, Page, Display. A Timeline lap strip under the menus, page tabs, black plots, time difference as its own trace. Source: ATLAS documentation.</span></figcaption></figure>
+<figure><a href="https://www.bosch-motorsport.com/content/downloads/WinDarab_Wiki/en-GB/239848075.html"><img loading="lazy" referrerpolicy="no-referrer" src="https://www.bosch-motorsport.com/content/downloads/WinDarab_Wiki/Images/jpg/9007199495361547__Web.jpg" alt="Bosch WinDarab main window with ribbon, file explorer, racetrack and channel list"></a><figcaption><b>Bosch WinDarab</b><span>Workbook, Worksheet. An Outing bar, laps listed on the left, racetrack bottom left, black and white styles. Source: Bosch Motorsport WinDarab wiki.</span></figcaption></figure>
+<figure><a href="https://www.cosworth.com/motorsport/products/pi-toolbox"><img loading="lazy" referrerpolicy="no-referrer" src="https://cosworth.com/media/sl1lyx05/tb13-hero-2.png" alt="Cosworth Pi Toolbox window with explorer on the left and charts"></a><figcaption><b>Cosworth Pi Toolbox</b><span>Workbook, Worksheet, Display; Outing and laps. Explorer docked left, worksheet tabs along the bottom, legend with cursor values. Source: Cosworth.</span></figcaption></figure>
+<figure><a href="https://aim-sportline.com/docs/racestudio3/manual/html/analysis.html"><img loading="lazy" referrerpolicy="no-referrer" src="https://aim-sportline.com/docs/racestudio3/manual/html/_images/RSA3_TimeDistanceView.png" alt="AiM Race Studio 3 Analysis time-distance layout with a white plot"></a><figcaption><b>AiM Race Studio 3 Analysis</b><span>Lists on the left, map, a white plot by default, a Time Compare strip under the graph, a lap strip at the bottom. Source: AiM manual.</span></figcaption></figure>
+<figure><a href="https://support-centre.racelogic.co.uk/motorsport/software/ct3/ug/software-overview/"><img loading="lazy" referrerpolicy="no-referrer" src="https://projecteinsteinstorage.blob.core.windows.net/media/production/images/Circuit_Tools_v3.2_with_Insights_and_Dark_Mode_.original.png" alt="Racelogic Circuit Tools 3 in dark mode with laps table, video, graph and track map"></a><figcaption><b>Racelogic Circuit Tools 3</b><span>Four fixed panes: laps, video, graph, track map. Light and dark themes. Sector text green when quicker, purple for best. Source: Racelogic support centre.</span></figcaption></figure>
+<figure><a href="http://help.2d-datarecording.com/Analyzer_General"><img loading="lazy" referrerpolicy="no-referrer" src="https://help.2d-datarecording.com/_images/Analyzer.png" alt="2D Analyzer desktop with moving window, overview window and circuit window"></a><figcaption><b>2D Analyzer (motorcycle racing)</b><span>A moving window, an overview strip of the whole measurement with lap triggers, a circuit window. White, grey and black colour schemes. Source: 2D help.</span></figcaption></figure>
+</div>
+<h3>Found in three or more of them</h3>
+<ul>
+<li>A command area across the top and tabbed pages.</li>
+<li>A horizontal lap strip, and a list of laps on the left.</li>
+<li>A legend that shows the live cursor value beside each trace.</li>
+<li>Black plot areas in the team-grade tools; white by default in AiM and Racelogic.</li>
+<li>Overlay against distance, with the fastest lap as the default reference.</li>
+<li>The time difference between two laps as its own trace under the main chart.</li>
+<li>One cursor shared by the chart, the track map and video.</li>
+<li>Single keys for next lap, previous lap and fastest lap.</li>
+<li>The words "Workbook" (ATLAS, Cosworth, Bosch, MoTeC) and "Worksheet" (Cosworth, Bosch, MoTeC).</li>
+</ul>
+<p class="note">Marelli WinTAX4 follows the same pattern but publishes no screenshots outside PDF manuals. The sign of the time difference is not uniform between tools, so TRACE has to state its own.</p>
+
+<h2 id="switch">5. How other open-source tools handled switching</h2>
+<div class="grid">
+<figure><a href="https://www.gimp.org/release-notes/gimp-2.10.html"><img loading="lazy" referrerpolicy="no-referrer" src="https://www.gimp.org/release-notes/images/2.10-update-ui.jpg" alt="GIMP 2.10 with its dark theme and symbolic icons"></a><figcaption><b>GIMP 2.10</b><span>Single-window mode arrived in 2.8; the dark theme and symbolic icons became the default in 2.10. Source: GIMP release notes.</span></figcaption></figure>
+<figure><a href="https://github.com/Diolinux/PhotoGIMP"><img loading="lazy" referrerpolicy="no-referrer" src="https://github.com/Diolinux/PhotoGIMP/raw/master/screenshots/photogimp_3_-_diolinux.png" alt="PhotoGIMP, GIMP arranged like Photoshop"></a><figcaption><b>PhotoGIMP</b><span>A settings pack that moves GIMP's tools to Photoshop's positions and maps its shortcuts, under its own name and icon. Source: PhotoGIMP on GitHub.</span></figcaption></figure>
+<figure><a href="https://www.darktable.org/about/screenshots/"><img loading="lazy" referrerpolicy="no-referrer" src="https://www.darktable.org/images/screenshot_darkroom1.jpg" alt="darktable darkroom view"></a><figcaption><b>darktable</b><span>Mirrors Lightroom's Library and Develop as lighttable and darkroom, and says plainly that it is not a drop-in replacement. Source: darktable.org.</span></figcaption></figure>
+</div>
+<h3>Lessons that apply to TRACE</h3>
+<ul>
+<li>Offer the familiar layout and keys as a named, maintained set. Blender did this with one "Industry Compatible" keymap; Inkscape's Illustrator keymap went stale and Krita's Photoshop scheme once broke on a typo, so the set needs a test.</li>
+<li>Where things sit and what they are called carry most of the familiarity.</li>
+<li>A control that looks the same must behave the same. Half-copies annoy switchers more than honest differences.</li>
+<li>Reading the user's old files decides switching more than looks do. TRACE's MoTeC .ld Adapter matters as much as this design.</li>
+<li>Publish a "Coming from MoTeC" page listing every deliberate difference.</li>
+<li>Use our own name, icons and artwork. Menu structure and shortcuts are generally treated as functional (Lotus v. Borland; Apple v. Microsoft); icons, names and a distinctive overall look are not. This is not legal advice.</li>
+</ul>
+
+<h2 id="ground">6. Where the style comes from</h2>
+<p>The first design was rejected for looking like a stock dashboard. The three directions take their style from motorsport and instrument sources instead.</p>
+<div class="grid">
+<figure><a href="https://www.formula1.com/en/latest/article/you-speak-we-listen-the-latest-f1-live-timing-improvements.G9HzG04abEZ7wSosVjUfg"><img loading="lazy" referrerpolicy="no-referrer" src="https://media.formula1.com/image/upload/c_lfill,w_3392/q_auto/v1740000001/content/dam/fom-website/manual/Misc/App/live-timing-compressor.webp" alt="Official Formula 1 live timing screens on black backgrounds"></a><figcaption><b>Official live timing</b><span>Pure black, dense rows, colour carried by the text. The official key: yellow default, green personal best, magenta overall best. Feeds direction A. Source: formula1.com.</span></figcaption></figure>
+<figure><a href="https://www.tsl-timing.com/"><img loading="lazy" referrerpolicy="no-referrer" src="https://www.tsl-timing.com/Images/carousel/tsl.webp" alt="TSL Timing banner showing a timing table beside a track map"></a><figcaption><b>TSL Timing</b><span>The same grammar at national level: a timing table beside a track map. Source: tsl-timing.com.</span></figcaption></figure>
+<figure><a href="https://www.motec.com.au/products/C127"><img loading="lazy" referrerpolicy="no-referrer" src="https://assets.motec.com.au/strapi/C127_ce15aa9810.webp" alt="MoTeC C127 colour dash display"></a><figcaption><b>Race dash display (MoTeC C127)</b><span>Black field, white values, one accent hue for labels, colour reserved for state. Feeds directions A and C. Source: MoTeC.</span></figcaption></figure>
+<figure><a href="https://github.com/polarsys/b612/tree/master/docs"><img loading="lazy" referrerpolicy="no-referrer" src="https://raw.githubusercontent.com/polarsys/b612/master/docs/sample.png" alt="B612 typeface specimen"></a><figcaption><b>B612, the Airbus cockpit typeface</b><span>Drawn for reading figures on cockpit screens; open licence. Feeds direction B. Source: the B612 project.</span></figcaption></figure>
+</div>
+<p class="note">Printed sheet reference for direction B: the FIA race history chart, white paper with a black title band and ruled lap blocks (<a href="https://www.fia.com/sites/default/files/2025_17_aze_f1_r0_timing_racehistorychart_v01.pdf">FIA PDF</a>). The official colour key is in the Help panel of the <a href="https://www.f1academy.com/livetiming/index.html">F1 Academy live timing page</a>; it comes from the rights holder, not from an FIA regulation.</p>
+
+<h2 id="parts">7. Typefaces and colours under consideration</h2>
+<p>All three typefaces are under the SIL Open Font License, so they can ship inside a GPL application. Each has tabular figures, so columns of times line up.</p>
+<div class="spec">
+<div style="font-family:'Titillium Web',sans-serif"><b style="font:600 12px system-ui">A. Titillium Web</b><div class="big" style="font-weight:700">1:24.391</div><div class="sm">LAP 6 &nbsp; S1 24.480 &nbsp; S2 31.438 &nbsp; S3 28.473<br>Speed 138.7 km/h &nbsp; Brake pressure 62.0 bar</div><small>Embedded in official FIA timing PDFs. Tabular by default.</small></div>
+<div style="font-family:'B612',sans-serif"><b style="font:600 12px system-ui">B. B612</b><div class="big" style="font-weight:700">1:24.391</div><div class="sm">LAP 6 &nbsp; S1 24.480 &nbsp; S2 31.438 &nbsp; S3 28.473<br>Speed 138.7 km/h &nbsp; Brake pressure 62.0 bar</div><small>Airbus cockpit-display typeface. Tabular by default. Two weights only.</small></div>
+<div style="font-family:'Barlow Semi Condensed',sans-serif"><b style="font:600 12px system-ui">C. Barlow Semi Condensed</b><div class="big" style="font-weight:600">1:24.391</div><div class="sm">LAP 6 &nbsp; S1 24.480 &nbsp; S2 31.438 &nbsp; S3 28.473<br>Speed 138.7 km/h &nbsp; Brake pressure 62.0 bar</div><small>Drawn from Californian road signs and number plates. Three widths, nine weights; tabular figures switched on.</small></div>
+</div>
+<h3>Channel colours, tested for colour-vision deficiency</h3>
+<p>Both sets pass the checks for the two common forms of red-green deficiency, for normal vision and for 3:1 contrast against their background.</p>
+<div class="sw dk"><span><i style="background:#F2F0EA"></i>Speed #F2F0EA</span><span><i style="background:#12A87E"></i>Throttle #12A87E</span><span><i style="background:#F0503C"></i>Brake #F0503C</span><span><i style="background:#3D8DF5"></i>Steering #3D8DF5</span><span><i style="background:#C08A00"></i>Engine speed #C08A00</span><span><i style="background:#8E8B84"></i>Overlay lap #8E8B84</span></div>
+<div class="sw"><span><i style="background:#14171A"></i>Speed #14171A</span><span><i style="background:#0B8F6C"></i>Throttle #0B8F6C</span><span><i style="background:#D23B1E"></i>Brake #D23B1E</span><span><i style="background:#1668C9"></i>Steering #1668C9</span><span><i style="background:#A86F00"></i>Engine speed #A86F00</span><span><i style="background:#7D848B"></i>Overlay lap #7D848B</span></div>
+<h3>Timing colours</h3>
+<div class="sw dk"><span><i style="background:#FF4DFF"></i>Best of the Outing</span><span><i style="background:#39D353"></i>Improved</span><span><i style="background:#FFE600"></i>No improvement (direction A only)</span></div>
+<div class="sw"><span><i style="background:#8A1FB5"></i>Best of the Outing</span><span><i style="background:#16803A"></i>Improved</span></div>
+<p class="note">The official screens use pure #FF00FF, #00FF00 and #FFFF00. Those are kept on black with small adjustments for legibility; on white only darker versions reach the contrast needed.</p>
+
+<h2 id="open">8. Open points</h2>
+<ul>
+<li><b>Words that are not in the glossary yet:</b> Workbook, Worksheet, Component; Main, Overlay and Reference lap; and what to call the time difference trace (MoTeC "Variance", ATLAS "Time Diff", AiM "Time Compare"). The mockups use MoTeC's words.</li>
+<li><b>Sign of the time difference.</b> The mockups show a positive value when the Overlay lap is behind the Main lap.</li>
+<li><b>MoTeC's sections versus TRACE's Sectors.</b> i2 reports on user-defined track sections (Turn 1, Straight 1 to 2). The mockups show Sectors only, as the glossary defines them.</li>
+<li><b>"MoTeC i2" as the name of the key set</b> uses MoTeC's trade mark and belongs in the trade mark clearance already on the list.</li>
+<li><b>An existing open-source project</b>, <a href="https://github.com/racer-coder/TrackDataAnalysis">Track Data Analysis</a> (MIT, Python and Qt), already reads MoTeC, AiM and Racelogic files with an i2-like layout. Its author notes that i2 is "almost" sharp on high-resolution screens and Windows only.</li>
+<li><b>Not confirmed:</b> the current i2 hot-key list (taken from an older third-party guide), and whether any FIA regulation defines the timing colours.</li>
+</ul>
+</main>
+</body>
+</html>
