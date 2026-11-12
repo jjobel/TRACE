@@ -1,8 +1,10 @@
 /**
  * What the desktop shell offers the user interface, as `window.trace`.
  *
- * The user interface runs in a sandbox with no access to the computer. This
- * bridge is the whole of what it can ask the shell to do.
+ * The user interface runs in a sandbox. It reaches the computer in two ways
+ * only: through this bridge, which is the whole of what it can ask the shell
+ * to do, and through the core's local API, which reads the files it is asked
+ * to import.
  */
 export interface TraceBridge {
   /**

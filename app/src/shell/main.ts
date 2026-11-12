@@ -23,6 +23,18 @@ const ui = devServerUrl
   ? { url: devServerUrl, origin: new URL(devServerUrl).origin }
   : { url: `${UI_SCHEME}://ui/`, origin: `${UI_SCHEME}://ui` }
 
+/** Whether a URL is a page of the user interface itself. */
+function isUi(url: string | undefined): boolean {
+  if (!url) return false
+  try {
+    const expected = new URL(ui.url)
+    const { protocol, host } = new URL(url)
+    return protocol === expected.protocol && host === expected.host
+  } catch {
+    return false
+  }
+}
+
 protocol.registerSchemesAsPrivileged([
   { scheme: UI_SCHEME, privileges: { standard: true, secure: true, supportFetchAPI: true } },
 ])
@@ -55,7 +67,7 @@ function coreCommand(): { command: string; args: string[] } {
 
 /** Only the user interface itself may use the bridge. */
 function fromUi(event: IpcMainInvokeEvent): boolean {
-  return event.senderFrame?.url.startsWith(ui.url) ?? false
+  return isUi(event.senderFrame?.url)
 }
 
 function offerBridge(): void {
@@ -93,7 +105,7 @@ function openWindow(): void {
   // The window shows the user interface and nothing else.
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
   window.webContents.on('will-navigate', (event, url) => {
-    if (!url.startsWith(ui.url)) event.preventDefault()
+    if (!isUi(url)) event.preventDefault()
   })
   void window.loadURL(ui.url)
 }

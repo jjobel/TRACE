@@ -6,7 +6,13 @@ let connecting: Promise<CoreApi> | undefined
 
 /** The core's API, connected to once and shared. */
 function core(): Promise<CoreApi> {
-  connecting ??= window.trace.coreConnection().then(coreApi)
+  connecting ??= window.trace.coreConnection().then(coreApi, (cause: unknown) => {
+    console.error(cause)
+    throw new Error(
+      'TRACE could not start its analysis core, so the library cannot be shown. ' +
+        'Quit TRACE and open it again; if this happens again, please report it.',
+    )
+  })
   return connecting
 }
 
@@ -60,7 +66,7 @@ export function Library() {
       {logs === null ? (
         problem === null && <p>Opening the library…</p>
       ) : logs.length === 0 ? (
-        <p>No Logs yet. Import a .vbo file to add the first one.</p>
+        <p>No Logs yet. Import a file to add the first one.</p>
       ) : (
         <ul aria-label="Logs">
           {logs.map((log) => (

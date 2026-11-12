@@ -15,20 +15,32 @@ export interface CoreApi {
 }
 
 export function coreApi(connection: CoreConnection): CoreApi {
+  /** Rejects with an Error whose message can be shown to the user as it is. */
   async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
-    const response = await fetch(connection.baseUrl + path, {
-      method,
-      headers: {
-        Authorization: `Bearer ${connection.secret}`,
-        ...(body === undefined ? {} : { 'Content-Type': 'application/json' }),
-      },
-      body: body === undefined ? undefined : JSON.stringify(body),
-    })
-    const answer: unknown = await response.json()
-    if (!response.ok) {
-      const detail = (answer as { detail?: unknown }).detail
+    let response: Response
+    let answer: unknown
+    try {
+      response = await fetch(connection.baseUrl + path, {
+        method,
+        headers: {
+          Authorization: `Bearer ${connection.secret}`,
+          ...(body === undefined ? {} : { 'Content-Type': 'application/json' }),
+        },
+        body: body === undefined ? undefined : JSON.stringify(body),
+      })
+      answer = await response.json()
+    } catch {
       throw new Error(
-        typeof detail === 'string' ? detail : `The analysis core answered ${response.status}.`,
+        'TRACE lost contact with its analysis core. Quit TRACE and open it again.',
+      )
+    }
+    if (!response.ok) {
+      const detail = (answer as { detail?: unknown } | null)?.detail
+      throw new Error(
+        typeof detail === 'string'
+          ? detail
+          : `The analysis core ran into a fault (status ${response.status}). ` +
+            'Quit TRACE and open it again; if this happens again, please report it.',
       )
     }
     return answer as T
