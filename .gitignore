@@ -18,3 +18,9 @@ node_modules/
 app/out/
 test-results/
 playwright-report/
+
+# Files to try by hand, such as your own logger files
+test-data/
+
+# macOS
+.DS_Store

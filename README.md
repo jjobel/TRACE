@@ -26,8 +26,10 @@ npm test
 To try an import without a logger file of your own, write the synthetic one the tests use:
 
 ```bash
-uv run --project core python core/tests/synthetic_vbo.py ~/Desktop/car-circuit.vbo
+uv run --project core python core/tests/synthetic_vbo.py test-data/car-circuit.vbo
 ```
+
+`test-data/` is ignored by git. Keep the files you try by hand there, your own logger files included.
 
 Imported Logs are kept in your application data folder, on macOS `~/Library/Application Support/TRACE Telemetry/library`. The file you import from is never changed.
 

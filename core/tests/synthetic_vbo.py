@@ -325,5 +325,7 @@ def _control_line() -> str:
 
 
 if __name__ == "__main__":
-    written = write_car_circuit_vbo(Path(sys.argv[1]))
+    target = Path(sys.argv[1]).expanduser()
+    target.parent.mkdir(parents=True, exist_ok=True)
+    written = write_car_circuit_vbo(target)
     print(f"{written.path}: {written.sample_count} samples, lap times {written.lap_times}")
