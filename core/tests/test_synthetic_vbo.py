@@ -5,11 +5,10 @@ line in its `[laptiming]` section and the position samples in its `[data]`
 section. Nothing is taken from how the generator builds the file.
 """
 
-from pathlib import Path
-
 import numpy as np
 import pytest
 from synthetic_vbo import write_car_circuit_vbo
+from vbo_text import control_line_crossing_times, sample_times, sections
 
 
 def test_car_fixture_holds_the_lap_times_it_was_asked_for(tmp_path):
@@ -43,52 +42,3 @@ def test_car_fixture_reports_what_it_wrote(tmp_path):
     assert {"velocity kmh", "Engine_Speed", "Throttle_Position", "Brake_Pressure"} <= set(
         fixture.channel_names
     )
-
-
-def sections(path: Path) -> dict[str, list[str]]:
-    """The non-blank lines of each `[section]` of a `.vbo` file."""
-    found: dict[str, list[str]] = {}
-    current = None
-    for line in path.read_text(encoding="utf-8").splitlines():
-        if line.startswith("[") and line.endswith("]"):
-            current = found.setdefault(line[1:-1], [])
-        elif current is not None and line.strip():
-            current.append(line)
-    return found
-
-
-def sample_times(path: Path) -> np.ndarray:
-    """Seconds since midnight UTC of every sample."""
-    parts = sections(path)
-    clock = _column(parts, "time")  # hhmmss.ss
-    return (clock // 10000) * 3600 + (clock // 100 % 100) * 60 + clock % 100
-
-
-def control_line_crossing_times(path: Path) -> np.ndarray:
-    """When the path crosses the file's Start line, in seconds since midnight UTC.
-
-    A crossing lies between the two samples either side of the line, and its
-    time is interpolated linearly between them.
-    """
-    parts = sections(path)
-    seconds = sample_times(path)
-    # Both are in minutes of arc; the file's longitude is positive to the west.
-    position = np.column_stack([_column(parts, "longitude"), _column(parts, "latitude")])
-    line = [float(value) for value in parts["laptiming"][0].split()[1:5]]
-    start, end = np.array(line[:2]), np.array(line[2:])
-    along = end - start
-
-    offset = position - start
-    side = along[0] * offset[:, 1] - along[1] * offset[:, 0]
-    crossings = []
-    for i in np.nonzero(np.sign(side[:-1]) != np.sign(side[1:]))[0]:
-        fraction = side[i] / (side[i] - side[i + 1])
-        point = position[i] + fraction * (position[i + 1] - position[i])
-        if 0.0 <= np.dot(point - start, along) / np.dot(along, along) <= 1.0:
-            crossings.append(seconds[i] + fraction * (seconds[i + 1] - seconds[i]))
-    return np.array(crossings)
-
-
-def _column(parts: dict[str, list[str]], name: str) -> np.ndarray:
-    index = parts["header"].index(name)
-    return np.array([float(row.split()[index]) for row in parts["data"]])
