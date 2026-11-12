@@ -33,3 +33,15 @@ def test_a_log_is_still_listed_after_the_core_is_restarted(api, data_dir, car_fi
     assert restarted.get(f"/logs/{imported['id']}").json() == api.get(
         f"/logs/{imported['id']}"
     ).json()
+
+
+def test_a_file_that_is_not_a_vbo_is_refused_and_nothing_is_imported(api, data_dir, tmp_path):
+    notes = tmp_path / "notes.txt"
+    notes.write_text("Tyre pressures for Saturday\n", encoding="utf-8")
+
+    response = api.post("/logs/import", json={"path": str(notes)})
+
+    assert response.status_code == 400
+    assert "notes.txt is not a Racelogic .vbo file" in response.json()["detail"]
+    assert api.get("/logs").json() == []
+    assert not list(data_dir.rglob("notes.txt"))

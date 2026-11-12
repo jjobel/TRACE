@@ -11,6 +11,7 @@ from pathlib import Path
 
 import numpy as np
 
+from trace_telemetry.adapters import UnreadableFile
 from trace_telemetry.log import Channel, Log, Outing
 
 NAMESPACE = "vbo"
@@ -19,6 +20,11 @@ NAMESPACE = "vbo"
 def read_vbo(path: Path) -> Log:
     """Turn a `.vbo` file into a Log of one Outing."""
     sections = _sections(path.read_text(encoding="utf-8", errors="replace"))
+    if "header" not in sections or "data" not in sections:
+        raise UnreadableFile(
+            f"{path.name} is not a Racelogic .vbo file: "
+            "it has no [header] section or no [data] section."
+        )
     header = sections["header"]
     data = np.array([[float(value) for value in row.split()] for row in sections["data"]])
 
