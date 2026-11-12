@@ -1,3 +1,5 @@
+import { resolve } from 'node:path'
+
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'electron-vite'
 
@@ -12,7 +14,7 @@ export default defineConfig({
   },
   renderer: {
     root: 'src/ui',
-    build: { outDir: 'out/ui', rolldownOptions: { input: 'src/ui/index.html' } },
+    build: { outDir: 'out/ui', rolldownOptions: { input: resolve('src/ui/index.html') } },
     plugins: [react()],
   },
 })

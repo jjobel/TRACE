@@ -92,7 +92,9 @@ function openWindow(): void {
   })
   // The window shows the user interface and nothing else.
   window.webContents.setWindowOpenHandler(() => ({ action: 'deny' }))
-  window.webContents.on('will-navigate', (event) => event.preventDefault())
+  window.webContents.on('will-navigate', (event, url) => {
+    if (!url.startsWith(ui.url)) event.preventDefault()
+  })
   void window.loadURL(ui.url)
 }
 
