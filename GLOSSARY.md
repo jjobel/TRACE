@@ -1,6 +1,6 @@
 # TRACE
 
-TRACE records, analyzes and coaches from motorsport telemetry produced by any vehicle and any data source. Its vocabulary follows FIA and FIM sporting usage and the usage of professional data-logging tools; Sources are mapped onto these terms, never the other way round.
+TRACE records, analyzes and coaches from motorsport telemetry produced by any vehicle and any data source. Its vocabulary follows FIA and FIM sporting usage and the terms the trade already uses; Sources are mapped onto these terms, never the other way round.
 
 ## Data
 

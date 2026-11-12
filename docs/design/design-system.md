@@ -1,41 +1,32 @@
 # TRACE design system
 
-One look for the whole application. Each phase's design step extends this document; it never starts a new look. Terms follow [GLOSSARY.md](../../GLOSSARY.md).
+The rules every TRACE screen follows. Each phase extends this document; it never starts a new look. Terms follow [GLOSSARY.md](../../GLOSSARY.md).
 
-**Status:** signed off by the project owner on 2026-11-11 (issue #3).
-
-- Screens drawn with this system: [mockups/screens.html](mockups/screens.html)
-- The research behind it, with reference images: [research/reference-board.html](research/reference-board.html)
-- The three directions it was chosen from: [research/style-directions.html](research/style-directions.html)
-
-## Where it comes from
-
-- **Layout: MoTeC i2.** A user who knows i2 finds every part of the window where they expect it, the way a Photoshop user finds their way around GIMP. The same parts appear in McLaren ATLAS, Bosch WinDarab, Cosworth Pi Toolbox and AiM Race Studio, so the layout is the trade's, not one vendor's.
-- **Style: motorsport timing.** The dark theme is drawn from official live timing screens, the light theme from printed timing sheets. Nothing is taken from web dashboards.
+Screens drawn with these rules: [mockups/screens.html](mockups/screens.html). Open it in a browser.
 
 ## Principles
 
-1. **Familiar by layout.** Keep i2's window order, menu names, panes and hot keys. Where a control looks like i2's, it behaves like i2's.
-2. **The chrome is black and white.** Colour means data or state. It is never decoration, and there is no brand accent colour.
+1. **One window, everything in a fixed place.** The parts of the window keep their order and position on every screen and in every phase.
+2. **The chrome is black and white.** Colour means data or state. It is never decoration, and there is no accent colour.
 3. **One system, two themes.** The Timing screen (dark) and the Run sheet (light) share layout, type, spacing and rules. Only the colour tokens differ.
 4. **Square and ruled.** No rounded corners, no shadows, no gradients. Structure comes from 1 px rules.
 5. **Figures line up.** Tabular figures everywhere. Times read `m:ss.mmm`.
 6. **Readable by everyone.** Text meets WCAG 2.2 AA. Channel colours are tested for colour-vision deficiency. A colour is never the only cue: every trace has a named legend row.
-7. **Standards where they exist.** Timing colours follow official live timing. Display units follow the trade (ADR 0002). Signs follow ISO 8855 and are stated in the label (ADR 0003).
+7. **Units and signs.** Display units follow the trade (ADR 0002). Signs follow ISO 8855 and are stated in the label (ADR 0003).
 
 ## Window
 
 Top to bottom, at the default 1440 × 900. Minimum window 1280 × 720.
 
-| Part | Height | Holds | In MoTeC i2 |
-|---|---|---|---|
-| Menu bar | 26 px | File, Edit, View, Layout, Add, Data, Component, Tools, Help, in that order | The same menus in the same order |
-| Toolbar | 36 px | About fifteen labelled buttons, each showing its hot key; a search box for any Channel or command | About thirty-five unlabelled icons |
-| Current lap line | 31 px | A title block: Main, Lap, Time, Outing, Session, Course, Vehicle, Logged; the Overlay lap at the right | One bracketed line of text |
-| Lap strip | 17 px | The Outing as a strip of laps, each cell as wide as its lap time, with the time in it | Lap numbers only |
-| Workbook and worksheet tabs | 28 px | Workbook selector; worksheet tabs numbered 1 to 0 | The same |
-| Worksheet | rest | Left rail 26 px (Data, Channels, Reports, Layouts); Data and Channels pane 276 px; components; tool rail 28 px | The same, with the panes hidden until opened |
-| Status bar | 24 px | Cursor distance and time, Lap, Sector, zoom, x axis, units, key set, version | Time and distance |
+| Part | Height | Holds |
+|---|---|---|
+| Menu bar | 26 px | File, Edit, View, Layout, Add, Data, Component, Tools, Help, in that order |
+| Toolbar | 36 px | Labelled buttons, each showing its hot key; a search box for any Channel or command |
+| Current lap line | 31 px | A title block: Main, Lap, Time, Outing, Session, Course, Vehicle, Logged; the Overlay lap at the right |
+| Lap strip | 17 px | The Outing as a strip of laps, each cell as wide as its lap time, with the time in it |
+| Workbook and worksheet tabs | 28 px | Workbook selector; worksheet tabs numbered 1 to 0 |
+| Worksheet | rest | Left rail 26 px (Data, Channels, Reports, Layouts); Data and Channels pane 276 px; components; tool rail 28 px |
+| Status bar | 24 px | Cursor distance and time, Lap, Sector, zoom, x axis, units, key set, version |
 
 Rules for the window:
 
@@ -46,7 +37,7 @@ Rules for the window:
 
 ## Themes
 
-Both themes use the same token names. Dark is the default; light is for sunlight and printing.
+Both themes use the same token names. Dark is the default.
 
 | Token | Timing screen (dark) | Run sheet (light) | Use |
 |---|---|---|---|
@@ -77,7 +68,7 @@ Selection is always the inverse block. The current row is `row-main` with a 3 px
 
 ## Type
 
-**Titillium Web**, weights 400, 600 and 700, bundled with the application so it works offline. It is under the SIL Open Font License 1.1, which is compatible with GPL-3.0-or-later. Its figures are tabular by default, and it is the typeface embedded in official FIA timing documents.
+**Titillium Web**, weights 400, 600 and 700, bundled with the application so it works offline. It is under the SIL Open Font License 1.1, which is compatible with GPL-3.0-or-later. Its figures are tabular by default.
 
 | Role | Size | Weight | Notes |
 |---|---|---|---|
@@ -89,8 +80,6 @@ Selection is always the inverse block. The current row is `row-main` with a 3 px
 | Main lap time | 15 px | 700 | |
 | Axis figures, key caps | 9.5 px | 400 | |
 | Dialog heading | 15 px | 700 | |
-
-B612, the Airbus cockpit typeface, was the other candidate. It reads very well but is wider and has only two weights.
 
 ## Shape and space
 
@@ -109,10 +98,9 @@ B612, the Airbus cockpit typeface, was the other candidate. It reads very well b
 | **Improved** | Quicker than every earlier Lap of the Outing when it was set, and later beaten |
 | **No improvement** | Any other time |
 
-- On black the colour is in the figure, as on a timing screen. On white the cell is filled, as on a printed sheet.
+- On the dark theme the colour is in the figure. On the light theme the cell is filled.
 - The Out-lap and the In-lap are not Laps: they are shown in italics, hatched in the lap strip, and never coloured.
 - A Deleted lap is struck through and is not eligible for Best or Improved.
-- The scheme is the one documented by the rights holder on official live timing (yellow, green, magenta). No FIA regulation defining it was found.
 
 ## Channel colours
 
@@ -127,10 +115,8 @@ A Channel keeps its colour everywhere in the application.
 | Engine speed | `#C08A00` | `#A86F00` |
 | Gear, lateral acceleration | `ink-2` | `ink-2` |
 
-- Throttle green and brake red follow common practice, in hues that stay apart for red-green colour-vision deficiency.
-- Both sets pass the check for the two common deficiencies, for normal vision and for 3:1 contrast against the plot.
 - With an Overlay lap, the Main lap keeps the Channel colours and the Overlay lap is drawn thinner in `overlay`.
-- A phase that needs more Channel colours adds them here and runs the same check.
+- A phase that needs more Channel colours adds them here and runs the checks below.
 
 ## Components
 
@@ -156,7 +142,7 @@ A Channel keeps its colour everywhere in the application.
 
 ## Hot keys
 
-The default key set matches MoTeC i2. It is shown in the status bar and is one named set, so another can be added later.
+The keys live in one named key set, shown in the status bar, so another set can be added later.
 
 | Key | Action | Phase |
 |---|---|---|
@@ -177,29 +163,22 @@ The default key set matches MoTeC i2. It is shown in the status bar and is one n
 | 0 to 9 | Select that worksheet | later |
 | F11 / F12 | Previous or next worksheet | later |
 
-The list was taken from a third-party guide to an older i2 release and must be checked against the Help file of the current one before it is implemented.
-
 ## Screens in phase 1
 
-| Screen | Serves |
+| Screen | Tickets |
 |---|---|
-| Library | #8: every Log with date, Venue, Vehicle and Source; import by button or by dropping a file; delete; version in the status bar |
-| Log and Channel plot | #9 and #11: Outings and the lap table with the best Lap, Out-lap and In-lap marked; any Channel against time or distance; cursor; display units |
-| Control lines | #12: place the Start/Finish line and intermediate lines on the path; saved with the Course |
-| Dialogs and messages | #8, #9, #12: confirm delete; a file that cannot be imported; a Log in which Laps cannot be found |
+| Window, themes and shared parts | #17, #18, #19 |
+| Library | #8 |
+| Log and Channel plot | #9, #10, #11, #20, #21, #22 |
+| Control lines | #12 |
+| Dialogs and messages | #8, #9, #12 |
+| Hot keys | #23 |
 
 ## Checks made
+
+These are the values the automated checks (#24) hold the interface to.
 
 - Text contrast, dark: `ink` 18.4:1, `ink-2` 11.0:1, `ink-3` 6.0:1, `time` 16.6:1, `improved` 10.6:1, `best` 7.8:1, `danger` 7.3:1.
 - Text contrast, light: `ink` 14.5:1, `ink-2` 8.2:1, `ink-3` 5.0:1, white on `improved` 5.0:1, white on `best` 7.1:1, `danger` 5.3:1.
 - `ink-4` is at least 3:1 in both themes. It marks controls that cannot be used yet, which WCAG exempts from the text minimum.
-- Channel colours: worst neighbouring pair under simulated red-green deficiency ΔE 9.6 (dark) and 10.2 (light), against a target of 8.
-- All screens were rendered in both themes from the same markup, with only the theme tokens changed.
-
-## Open points
-
-1. **Words not in the glossary yet:** Workbook, Worksheet, Component; Main, Overlay and Reference lap. The mockups use MoTeC's words.
-2. **The time difference trace:** MoTeC calls it Variance, ATLAS Time Diff, AiM Time Compare. The sign is not uniform between tools; the mockups show a positive value when the Overlay lap is behind the Main lap.
-3. **"MoTeC i2" as the name of the key set** uses MoTeC's trade mark and belongs in the trade mark clearance.
-4. **Yellow as the default time colour** in the dark theme follows timing screens. If it proves tiring in long tables, `time` can become `ink` without touching anything else.
-5. **Hot keys** need checking against the current i2 Help file.
+- Channel colours: worst neighbouring pair under simulated red-green colour-vision deficiency ΔE 9.6 (dark) and 10.2 (light), against a target of 8, and at least 3:1 against the plot.
